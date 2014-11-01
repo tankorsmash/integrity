@@ -144,13 +144,14 @@ public class FullscreenActivity extends Activity {
              ShapeDrawable d;  
              Path p = new Path();  
              p.moveTo(0,0);   
-             p.lineTo(20,0);   
-             p.lineTo(20,20);   
-             p.lineTo(0,20);   
+             p.lineTo(200,0);   
+             p.lineTo(200,200);   
+             p.lineTo(0,200);   
 
              d = new ShapeDrawable (new PathShape(p, 100, 200));  
              d.setIntrinsicHeight(100);  
-             d.setIntrinsicWidth(100);  
+             d.setIntrinsicWidth(100);
+             
              d.getPaint().setColor(Color.rgb(255, 215, 0));  
              d.getPaint().setStyle(Paint.Style.FILL_AND_STROKE);  
              image = (ImageView) findViewById(R.id.our_imageview); 
