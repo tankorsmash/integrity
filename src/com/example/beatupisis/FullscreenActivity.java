@@ -3,21 +3,27 @@ package com.example.beatupisis;
 import com.example.beatupisis.util.SystemUiHider;
 
 import android.annotation.TargetApi;
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Path;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.PathShape;
+import android.media.ExifInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 
 /**
@@ -58,69 +64,97 @@ public class FullscreenActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         
-    
+//        image.setAdjustViewBounds(true);
+//        image.setLayoutParams(new Gallery.LayoutParams(LayoutParams.WRAP_CONTENT,
+//       		  LayoutParams.WRAP_CONTENT));
+//        
+//        LinearLayout mLinearLayout = new LinearLayout(this);
+//        mLinearLayout.addView(image);
+//        setContentView(mLinearLayout);
 
         setContentView(R.layout.activity_fullscreen);
 
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
 
+//      View cv = (R.drawable.face);
+//      cv.setOnTouchListener(test2);
+//      drawable.set
         // Set up an instance of SystemUiHider to control the system UI for
         // this activity.
-        mSystemUiHider = SystemUiHider.getInstance(this, contentView, HIDER_FLAGS);
-        mSystemUiHider.setup();
-        mSystemUiHider
-                .setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
-                    // Cached values.
-                    int mControlsHeight;
-                    int mShortAnimTime;
-
-                    @Override
-                    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-                    public void onVisibilityChange(boolean visible) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-                            // If the ViewPropertyAnimator API is available
-                            // (Honeycomb MR2 and later), use it to animate the
-                            // in-layout UI controls at the bottom of the
-                            // screen.
-                            if (mControlsHeight == 0) {
-                                mControlsHeight = controlsView.getHeight();
-                            }
-                            if (mShortAnimTime == 0) {
-                                mShortAnimTime = getResources().getInteger(
-                                        android.R.integer.config_shortAnimTime);
-                            }
-                            controlsView.animate()
-                                    .translationY(visible ? 0 : mControlsHeight)
-                                    .setDuration(mShortAnimTime);
-                        } else {
-                            // If the ViewPropertyAnimator APIs aren't
-                            // available, simply show or hide the in-layout UI
-                            // controls.
-                            controlsView.setVisibility(visible ? View.VISIBLE : View.GONE);
-                        }
-
-                        if (visible && AUTO_HIDE) {
-                            // Schedule a hide().
-                            delayedHide(AUTO_HIDE_DELAY_MILLIS);
-                        }
-                    }
-                });
+//        mSystemUiHider = SystemUiHider.getInstance(this, contentView, HIDER_FLAGS);
+//        mSystemUiHider.setup();
+//        mSystemUiHider
+//                .setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
+//                    // Cached values.
+//                    int mControlsHeight;
+//                    int mShortAnimTime;
+//
+//                    @Override
+//                    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+//                    public void onVisibilityChange(boolean visible) {
+//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+//                            // If the ViewPropertyAnimator API is available
+//                            // (Honeycomb MR2 and later), use it to animate the
+//                            // in-layout UI controls at the bottom of the
+//                            // screen.
+//                            if (mControlsHeight == 0) {
+//                                mControlsHeight = controlsView.getHeight();
+//                            }
+//                            if (mShortAnimTime == 0) {
+//                                mShortAnimTime = getResources().getInteger(
+//                                        android.R.integer.config_shortAnimTime);
+//                            }
+//                            controlsView.animate()
+//                                    .translationY(visible ? 0 : mControlsHeight)
+//                                    .setDuration(mShortAnimTime);
+//                        } else {
+//                            // If the ViewPropertyAnimator APIs aren't
+//                            // available, simply show or hide the in-layout UI
+//                            // controls.
+//                            controlsView.setVisibility(visible ? View.VISIBLE : View.GONE);
+//                        }
+//
+//                        if (visible && AUTO_HIDE) {
+//                            // Schedule a hide().
+////                            delayedHide(AUTO_HIDE_DELAY_MILLIS);
+//                        }
+//                    }
+//                });
 
         // Set up the user interaction to manually show or hide the system UI.
-        contentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (TOGGLE_ON_CLICK) {
-                    mSystemUiHider.toggle();
-                } else {
-                    mSystemUiHider.show();
-                }
-            }
-        });
+//        contentView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (TOGGLE_ON_CLICK) {
+//                    mSystemUiHider.toggle();
+//                } else {
+//                    mSystemUiHider.show();
+//                }
+//            }
+//        });
 
-        findViewById(R.id.dummy_button).setOnTouchListener(test2);
+//        findViewById(R.id.dummy_button).setOnTouchListener(test2);
+//      image = (ImageView) findViewById(R.id.face);
+//      image.setImageResource(R.drawable.face);
+      Resources res = getResources();
+      Drawable drawable = res.getDrawable(R.drawable.face);
+      ImageView iv = (ImageView) findViewById(R.drawable.face);
+      if (iv == null)
+      {
+    	  Log.e("test", "image view is null!!");
+    	  iv = new ImageView(this);
+    	  iv.setImageResource(R.drawable.face);
+    	  iv.setAdjustViewBounds(true);
+    	    iv.setLayoutParams(new Gallery.LayoutParams(LayoutParams.WRAP_CONTENT,
+  LayoutParams.WRAP_CONTENT));;
+    	  
+      }
+
+      iv.setOnTouchListener(test2);
+
     };
  public int HELP_ME = 0;
     
@@ -132,7 +166,7 @@ public class FullscreenActivity extends Activity {
         // Trigger the initial hide() shortly after the activity has been
         // created, to briefly hint to the user that UI controls
         // are available.
-        delayedHide(100);
+//        delayedHide(100);
     }
 
     private ImageView image;
@@ -141,21 +175,8 @@ public class FullscreenActivity extends Activity {
         @Override  
         public boolean onTouch(View v, MotionEvent event) {  
 
-             ShapeDrawable d;  
-             Path p = new Path();  
-             p.moveTo(0,0);   
-             p.lineTo(200,0);   
-             p.lineTo(200,200);   
-             p.lineTo(0,200);   
 
-             d = new ShapeDrawable (new PathShape(p, 100, 200));  
-             d.setIntrinsicHeight(100);  
-             d.setIntrinsicWidth(100);
-             
-             d.getPaint().setColor(Color.rgb(255, 215, 0));  
-             d.getPaint().setStyle(Paint.Style.FILL_AND_STROKE);  
-             image = (ImageView) findViewById(R.id.our_imageview); 
-             image.setBackgroundDrawable(d);  
+        	Log.e("ASD","asdadsa");
              return false;
         }  
    };
