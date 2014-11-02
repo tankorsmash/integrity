@@ -1106,7 +1106,6 @@ containing a value of this type.
         public static final int expand_activities_button=0x7f050026;
         public static final int expanded_menu=0x7f05002c;
         public static final int fullscreen_content=0x7f05003c;
-        public static final int fullscreen_content_controls=0x7f05003d;
         public static final int home=0x7f050014;
         public static final int homeAsUp=0x7f050005;
         public static final int icon=0x7f05002a;
